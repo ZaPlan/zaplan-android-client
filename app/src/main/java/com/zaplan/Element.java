@@ -9,7 +9,7 @@ public class Element {
     public Element() {
     }
 
-    public Element(String title, String genre, String year) {
+    public Element(String title, String start, String end) {
         this.title = title;
         this.start = start;
         this.end = end;
