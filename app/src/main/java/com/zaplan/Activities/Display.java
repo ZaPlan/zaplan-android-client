@@ -52,6 +52,30 @@ public class Display extends Activity {
         element = new Element("Star Wars: Episode VII", "6:00", "9:00");
         elementList.add(element);
 
+        element = new Element("Star Wars: Episode VII", "6:00", "9:00");
+        elementList.add(element);
+
+        element = new Element("Star Wars: Episode VII", "6:00", "9:00");
+        elementList.add(element);
+
+        element = new Element("Star Wars: Episode VII", "6:00", "9:00");
+        elementList.add(element);
+
+        element = new Element("Star Wars: Episode VII", "6:00", "9:00");
+        elementList.add(element);
+
+        element = new Element("Star Wars: Episode VII", "6:00", "9:00");
+        elementList.add(element);
+
+        element = new Element("Star Wars: Episode VII", "6:00", "9:00");
+        elementList.add(element);
+
+        element = new Element("Star Wars: Episode VII", "6:00", "9:00");
+        elementList.add(element);
+
+        element = new Element("Star Wars: Episode VII", "6:00", "9:00");
+        elementList.add(element);
+
         mAdapter.notifyDataSetChanged();
     }
 
