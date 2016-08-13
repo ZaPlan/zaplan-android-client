@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/green</color>
-    <color name="colorPrimaryDark">@color/greenDark</color>
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/blueDark</color>
     <color name="colorAccent">@color/grayDark</color>
 
     <color name="green">#4CAf50</color>
-    <color name="greenDark">#2E7D32</color>
+    <color name="blue">#29B6F6</color>
+    <color name="blueDark">#0A9FE2</color>
     <color name="grayDark">#424242</color>
     <color name="grayDarkDark">#1C1C1C</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="gray">#CCCCCC</color>
+
+    <color name="purple">#553a99</color>
+    <color name="purpleDark">#4b3387</color>
 
     <color name="colorFacebook">#3D5A98</color>
     <color name="colorFacebookDark">#364F86</color>

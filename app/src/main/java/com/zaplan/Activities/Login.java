@@ -1,7 +1,9 @@
 package com.zaplan.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zaplan.R;
@@ -21,8 +25,10 @@ import com.zaplan.R;
 public class Login extends Activity {
 
     Button bt_login;
+    ImageButton ib_facebook;
     EditText et_email, et_pass;
     TextInputLayout til_email, til_pass;
+    TextView tv_appName, tv_appSlogan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,109 +38,46 @@ public class Login extends Activity {
         bt_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitForm();
+                Intent i = new Intent(Login.this, UserDetail.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+            }
+        });
+
+       ib_facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Login.this, "facebook login api", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void login(String email, String password) {
-
-
-        // TODO: LOGIN API HERE !!
-
-
-        Toast.makeText(getApplicationContext(), email + " " + password, Toast.LENGTH_SHORT).show();
+    protected void setStatusBarTranslucent(boolean makeTranslucent) {
+        if (makeTranslucent) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
-
-
-
 
     void init() {
         setContentView(R.layout.activity_login);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        et_email = (EditText) findViewById(R.id.login_et_email);
-        et_pass = (EditText) findViewById(R.id.login_et_password);
-        til_email = (TextInputLayout)findViewById(R.id.login_til_email);
-        til_pass = (TextInputLayout)findViewById(R.id.login_til_password);
+        Typeface MontReg = Typeface.createFromAsset(getApplication().getAssets(), "Montserrat-Regular.otf");
+        Typeface MontBold = Typeface.createFromAsset(getApplication().getAssets(), "Montserrat-Bold.otf");
+        Typeface MontHair = Typeface.createFromAsset(getApplication().getAssets(), "Montserrat-Hairline.otf");
+
+        tv_appName = (TextView)findViewById(R.id.tv_appName);
+        tv_appSlogan = (TextView)findViewById(R.id.tv_appSlogan);
         bt_login = (Button)findViewById(R.id.bt_login_login);
-        et_email.addTextChangedListener(new MyTextWatcher(et_email));
-        et_pass.addTextChangedListener(new MyTextWatcher(et_pass));
+        ib_facebook = (ImageButton) findViewById(R.id.ib_login_facebook);
+
+        bt_login.setTypeface(MontReg);
+        tv_appName.setTypeface(MontBold);
+        tv_appSlogan.setTypeface(MontBold);
+
+        setStatusBarTranslucent(true);
     }
-
-    /**
-     * Validating form
-     */
-    private void submitForm() {
-
-        if (!validateEmail()) {
-            return;
-        }
-        if (!validatePassword()) {
-            return;
-        }
-
-        login(et_email.getText().toString(), et_pass.getText().toString());
-    }
-
-    private boolean validateEmail() {
-        String email = et_email.getText().toString().trim();
-        if (email.isEmpty() || !isValidEmail(email)) {
-            til_email.setError("Invalid Email");
-            requestFocus(et_email);
-            return false;
-        } else {
-            til_email.setErrorEnabled(false);
-        }
-        return true;
-    }
-
-    private boolean validatePassword() {
-        if (et_pass.getText().toString().trim().isEmpty()) {
-            til_pass.setError("Password Cannot be Empty");
-            requestFocus(et_pass);
-            return false;
-        } else {
-            til_pass.setErrorEnabled(false);
-        }
-        return true;
-    }
-
-    private static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    private class MyTextWatcher implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.login_et_email:
-                    validateEmail();
-                    break;
-                case R.id.login_et_password:
-                    validatePassword();
-                    break;
-            }
-        }
-    }
-
 }
 
