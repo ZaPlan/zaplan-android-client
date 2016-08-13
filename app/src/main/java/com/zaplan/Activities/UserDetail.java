@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.zaplan.R;
 
 import java.util.Calendar;
@@ -26,14 +29,41 @@ public class UserDetail extends Activity {
 
     TextView tv_choosePrefs, tv_whenfree, tv_chooseBudget, tv_chooseDistance;
     SeekBar seekBar_budget, seekBar_distance;
-    Button bt_next, bt_startTime, bt_endTime;
+    Button bt_next, bt_startTime, bt_endTime , bt_logout;
     Calendar myCalendar;
+
+    FirebaseAuth.AuthStateListener mAuthListener;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         init();
+
+        mAuth = FirebaseAuth.getInstance();
+
+        // If user already logged in, go to landing page!
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+
+                }
+                else {
+                    launchLoginActivity();
+                }
+            }
+        };
+
+        bt_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(new Intent(UserDetail.this, Login.class)));
+            }
+        });
 
         bt_startTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,17 +157,34 @@ public class UserDetail extends Activity {
 
     }
 
+    void launchLoginActivity() {
+        Intent i = new Intent(UserDetail.this, Login.class);
+        startActivity(i);
+    }
+
+    String getUserEmail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String email = user.getEmail();
+            return email;
+        }
+        else {
+            return null;
+        }
+    }
+
     void init() {
 
         setContentView(R.layout.activity_userdetail);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
 
         seekBar_budget = (SeekBar) findViewById(R.id.seekBar_budget);
         seekBar_distance = (SeekBar) findViewById(R.id.seekBar_distance);
         bt_next = (Button) findViewById(R.id.bt_userdetail_next);
         bt_startTime = (Button) findViewById(R.id.bt_startTime);
         bt_endTime = (Button) findViewById(R.id.bt_EndTime);
+        bt_logout = (Button) findViewById(R.id.bt_details_logout);
 
         tv_whenfree = (TextView) findViewById(R.id.tv_details_whenFree);
         tv_choosePrefs = (TextView) findViewById(R.id.tv_details_chooseprefs);
@@ -156,6 +203,26 @@ public class UserDetail extends Activity {
         myCalendar = Calendar.getInstance();
     }
 
+    @Override
+    public void onBackPressed() {
+        android.os.Process.killProcess(android.os.Process.myPid());
+        finish();
+        System.exit(1);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
 
 
 }
