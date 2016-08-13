@@ -24,8 +24,7 @@ import com.zaplan.R;
  */
 public class Login extends Activity {
 
-    Button bt_login;
-    ImageButton ib_facebook;
+    ImageButton ib_facebook, ib_google;
     EditText et_email, et_pass;
     TextInputLayout til_email, til_pass;
     TextView tv_appName, tv_appSlogan;
@@ -35,7 +34,7 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         init();
 
-        bt_login.setOnClickListener(new View.OnClickListener() {
+        ib_facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Login.this, UserDetail.class);
@@ -44,10 +43,12 @@ public class Login extends Activity {
             }
         });
 
-       ib_facebook.setOnClickListener(new View.OnClickListener() {
+        ib_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Login.this, "facebook login api", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Login.this, UserDetail.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
         });
     }
@@ -70,10 +71,9 @@ public class Login extends Activity {
 
         tv_appName = (TextView)findViewById(R.id.tv_appName);
         tv_appSlogan = (TextView)findViewById(R.id.tv_appSlogan);
-        bt_login = (Button)findViewById(R.id.bt_login_login);
+        ib_google = (ImageButton)findViewById(R.id.ib_login_google);
         ib_facebook = (ImageButton) findViewById(R.id.ib_login_facebook);
 
-        bt_login.setTypeface(MontReg);
         tv_appName.setTypeface(MontBold);
         tv_appSlogan.setTypeface(MontBold);
 

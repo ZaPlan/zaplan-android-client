@@ -38,17 +38,29 @@
         android:layout_below="@+id/tv_appName"
         android:id="@+id/tv_appSlogan"/>
 
-    <Button
+    <!-- Social Login -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
-        android:text="LOGIN WITH GMAIL"
-        android:id="@+id/bt_login_login"
+        android:layout_marginLeft="20dp"
         android:layout_above="@+id/ll_login_orBar"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/custom_loginbutton"
-        android:textColor="@color/white"/>
+        android:id="@+id/ll_frontpage_socialLoginButtons">
+        <!-- Facebook -->
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:src="@drawable/fb_icon"
+            android:background="@drawable/custombutton_facebook"
+            android:cropToPadding="true"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:padding="9dp"
+            android:id="@+id/ib_login_facebook"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +69,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_above="@+id/ll_frontpage_socialLoginButtons"
+        android:layout_above="@+id/ll_frontpage_socialLoginButtons2"
         android:gravity="center"
         android:id="@+id/ll_login_orBar">
         <View
@@ -81,7 +93,6 @@
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
-
     <!-- Social Login -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,19 +103,20 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
-        android:id="@+id/ll_frontpage_socialLoginButtons">
+        android:id="@+id/ll_frontpage_socialLoginButtons2">
+
         <!-- Facebook -->
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:src="@drawable/fb_icon"
-            android:background="@drawable/custombutton_facebook"
+            android:src="@drawable/googleplus_icon"
+            android:background="@drawable/custombutton_googleplus"
             android:cropToPadding="true"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:padding="9dp"
-            android:id="@+id/ib_login_facebook"/>
+            android:id="@+id/ib_login_google"/>
     </LinearLayout>
 
 
