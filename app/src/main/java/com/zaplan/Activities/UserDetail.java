@@ -1,6 +1,7 @@
 package com.zaplan.Activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -27,13 +28,20 @@ import java.util.Calendar;
  */
 public class UserDetail extends Activity {
 
-    TextView tv_choosePrefs, tv_whenfree, tv_chooseBudget, tv_chooseDistance;
+    TextView tv_choosePrefs, tv_whenfree, tv_chooseBudget, tv_chooseDistance, tv_zaplan, tv_startTime, tv_endTime;
     SeekBar seekBar_budget, seekBar_distance;
     Button bt_next, bt_startTime, bt_endTime , bt_logout;
     Calendar myCalendar;
+    private String jsonResponse;
+
+    private static String TAG = UserDetail.class.getSimpleName();
+
+    private ProgressDialog pDialog;
 
     FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseAuth mAuth;
+
+    int v_budget, v_distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +126,8 @@ public class UserDetail extends Activity {
                 else {
                     budget = (progress*1000);
                 }
-                Toast.makeText(getApplicationContext(), "Approx Budget set: Rs." + budget, Toast.LENGTH_SHORT).show();
+                v_budget = budget;
+                Toast.makeText(getApplicationContext(), "Approx Budget set: Rs." + v_budget, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -141,20 +150,58 @@ public class UserDetail extends Activity {
                 else {
                     distance = (progress*10);
                 }
-
-                Toast.makeText(getApplicationContext(), "Approx Distance: " + distance + " km", Toast.LENGTH_SHORT).show();
+                v_distance = distance;
+                Toast.makeText(getApplicationContext(), "Approx Distance: " + v_distance + " km", Toast.LENGTH_SHORT).show();
             }
         });
 
         bt_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(UserDetail.this, Display.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+
+                if (bt_startTime.getText().toString().contains("Pick Start Time")) {
+                    Toast.makeText(UserDetail.this, "Please set start time!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (bt_endTime.getText().toString().contains("Pick End Time")) {
+                    Toast.makeText(UserDetail.this, "Please set end time!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    String temp = bt_startTime.getText().toString();
+                    int startHour = 0;
+                    if (temp.contains("PM")) {
+                        startHour += 12;
+                    }
+                    temp = temp.substring(0, (temp.indexOf(":")) - 1);
+                    startHour += Integer.parseInt(temp);
+
+                    temp = bt_endTime.getText().toString();
+                    int endHour = 0;
+                    if (temp.contains("PM")) {
+                        endHour += 12;
+                    }
+                    temp = temp.substring(0, temp.indexOf(":")-1);
+                    endHour += Integer.parseInt(temp);
+
+                    //Toast.makeText(UserDetail.this, startHour + "-" + endHour + ", " + v_budget + ", " + v_distance, Toast.LENGTH_SHORT).show();
+
+                    sendParams(startHour, endHour, v_budget, v_distance);
+                }
+
             }
         });
+    }
 
+
+    void sendParams(int startT, int endT, int budgetV, int distanceV) {
+        Intent i = new Intent(UserDetail.this, Display.class);
+        i.putExtra("startT", startT);
+        i.putExtra("endT", endT);
+        i.putExtra("budgetV", budgetV);
+        i.putExtra("distanceV", distanceV);
+        startActivity(i);
+        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
 
     void launchLoginActivity() {
@@ -190,27 +237,46 @@ public class UserDetail extends Activity {
         tv_choosePrefs = (TextView) findViewById(R.id.tv_details_chooseprefs);
         tv_chooseBudget = (TextView) findViewById(R.id.tv_chooseBudget);
         tv_chooseDistance = (TextView) findViewById(R.id.tv_chooseDistance);
+        tv_zaplan = (TextView) findViewById(R.id.tv_details_zaplan);
+        tv_startTime = (TextView) findViewById(R.id.tv_detail_tagstarttime);
+        tv_endTime = (TextView) findViewById(R.id.tv_detail_tagendtime);
 
         Typeface MontReg = Typeface.createFromAsset(getApplication().getAssets(), "Montserrat-Regular.otf");
         Typeface MontBold = Typeface.createFromAsset(getApplication().getAssets(), "Montserrat-Bold.otf");
         Typeface MontHair = Typeface.createFromAsset(getApplication().getAssets(), "Montserrat-Hairline.otf");
-        tv_choosePrefs.setTypeface(MontBold);
+        tv_choosePrefs.setTypeface(MontReg);
         tv_chooseBudget.setTypeface(MontReg);
         tv_chooseDistance.setTypeface(MontReg);
         bt_startTime.setTypeface(MontReg);
         bt_endTime.setTypeface(MontReg);
         tv_whenfree.setTypeface(MontReg);
+        tv_zaplan.setTypeface(MontBold);
+        tv_startTime.setTypeface(MontReg);
+        tv_endTime.setTypeface(MontReg);
+
         myCalendar = Calendar.getInstance();
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+
+        v_budget = 100;
+        v_distance = 10;
     }
 
+    private void showpDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+    private void hidepDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
     @Override
     public void onBackPressed() {
         android.os.Process.killProcess(android.os.Process.myPid());
         finish();
         System.exit(1);
     }
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -223,6 +289,4 @@ public class UserDetail extends Activity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-
-
 }
