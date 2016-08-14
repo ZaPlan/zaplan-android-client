@@ -35,7 +35,6 @@
 
     </RelativeLayout>
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +46,6 @@
         android:id="@+id/tv_details_chooseprefs"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -155,7 +153,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_chooseBudget"
-                        android:text="How much can you spend today?"
+                        android:text="How much are you willing to spend today?"
                         android:textSize="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"

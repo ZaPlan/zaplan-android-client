@@ -4,7 +4,7 @@ package com.zaplan;
  * Created by prasang7 on 13/8/16.
  */
 public class Element {
-    private String title, start, end;
+    private String title, start, end, imageLink;
 
     public Element() {
     }
@@ -15,12 +15,20 @@ public class Element {
         this.end = end;
     }
 
+    public Element(String title) {
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public String getStart() {

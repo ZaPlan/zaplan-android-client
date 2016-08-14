@@ -52,7 +52,6 @@ public class Login extends Activity {
     Button bt_Login;
     private ProgressDialog pDialog;
 
-
     FirebaseAuth.AuthStateListener mAuthListener;
     FirebaseAuth mAuth;
 
@@ -75,8 +74,6 @@ public class Login extends Activity {
                 }
             }
         };
-
-
 
         // real-time check by key watcher
         et_email.addTextChangedListener(new MyTextWatcher(et_email));
@@ -121,11 +118,11 @@ public class Login extends Activity {
         Typeface MontBold = Typeface.createFromAsset(getApplication().getAssets(), "Montserrat-Bold.otf");
         Typeface MontHair = Typeface.createFromAsset(getApplication().getAssets(), "Montserrat-Hairline.otf");
         tv_appName.setTypeface(MontBold);
-        tv_appSlogan.setTypeface(MontBold);
+        tv_appSlogan.setTypeface(MontReg);
         bt_Login.setTypeface(MontBold);
 
         pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Loggin in...");
+        pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
 
         setStatusBarTranslucent(true);
