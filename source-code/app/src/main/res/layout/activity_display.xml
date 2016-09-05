@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Your Plan for the day:"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:id="@+id/tv_display_topLabel"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/grayDark"
+        android:layout_below="@+id/tv_display_topLabel"
+        android:id="@+id/view_display_topbar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/view_display_topbar"
+        android:layout_marginBottom="60dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayDark"
+        android:layout_above="@+id/ll_display_bottom_buttons"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/ll_display_bottom_buttons">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/reload"
+                android:background="@drawable/custombutton_green"
+                android:cropToPadding="true"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
+                android:id="@+id/ib_display_refresh"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Refresh"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/thumb"
+                android:background="@drawable/custombutton_green"
+                android:cropToPadding="true"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
+                android:id="@+id/ib_display_thumb"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cool! Lets go!"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:src="@drawable/write"
+                android:background="@drawable/custombutton_green"
+                android:cropToPadding="true"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
+                android:id="@+id/ib_display_review"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Review"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

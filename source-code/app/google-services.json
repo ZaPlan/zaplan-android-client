@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "994421828641",
+    "firebase_url": "https://zaplan-6f554.firebaseio.com",
+    "project_id": "zaplan-6f554",
+    "storage_bucket": "zaplan-6f554.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994421828641:android:edd2124e1c4bd9bb",
+        "android_client_info": {
+          "package_name": "com.zaplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994421828641-5ajjvff8jqfjfjodd5r2cn34e2umsp31.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zaplan",
+            "certificate_hash": "806AA446EC7FF2F409E9ADFC65F554E1F9674FE2"
+          }
+        },
+        {
+          "client_id": "994421828641-s91gro06i2mvdum55v9mvlnccqn1i6nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQQ-rqu3VfkdSSYx-a18HkzvrTNS-AYYI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "994421828641-s91gro06i2mvdum55v9mvlnccqn1i6nc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
